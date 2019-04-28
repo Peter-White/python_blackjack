@@ -2,8 +2,7 @@ import re
 from Card import *
 from random import shuffle
 
-class Deck(object):
-    """docstring for Deck."""
+class Deck():
 
     def __init__(self):
         self.cards = []

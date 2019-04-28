@@ -14,8 +14,8 @@ def score(player, dealer):
     print("===========================")
     print("\n")
 
-player = Hand()
-dealer = Hand()
+player = Hand("The Cincinnati Kid", 500)
+dealer = Dealer()
 playingDeck.shuffleCards()
 
 def playGame():
