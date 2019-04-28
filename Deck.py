@@ -24,5 +24,8 @@ class Deck(object):
     def getCards(self):
         return self.cards
 
-    def drawCard(self):
+    def dealCard(self):
         return self.cards.pop(0)
+
+    def remainingCards(self):
+        return len(self.cards)

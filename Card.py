@@ -8,4 +8,4 @@ class Card():
         return self.title
 
     def getValue(self):
-        return self.value
+        return int(self.value)

@@ -1,4 +1,5 @@
 import random
+from Card import *
 
 class Hand():
 
@@ -7,17 +8,21 @@ class Hand():
         self.bust = False
         self.blackjack = False
 
-    def dealCard(self):
-        card = random.randint(1,10)
+    def drawCard(self,card):
 
-        if card == 1 and (self.hand + 11) <= 21:
+        if card.getValue() == 1 and (self.hand + 11) <= 21:
             self.hand += 11
-        elif card == 1 and (self.hand + 11) > 21:
+        elif card.getValue() == 1 and (self.hand + 11) > 21:
             self.hand += 1
         else:
-            self.hand += card
+            self.hand += card.getValue()
 
         return card
+
+    def resetHand(self):
+        self.hand = 0
+        self.bust = False
+        self.blackjack = False
 
     def getHand(self):
         return self.hand

@@ -1,6 +1,11 @@
 from Hand import *
+from Card import *
+from Deck import *
 
 playingDeck = Deck()
+player = Hand()
+
+playingDeck.shuffleCards()
 
 def score(player, dealer):
     print("\n")
@@ -13,9 +18,8 @@ def score(player, dealer):
 player = Hand()
 dealer = Hand()
 
-player.dealCard()
-player.dealCard()
-dealer.dealCard()
+print("Player starts with a {} and a {}".format(player.drawCard(playingDeck.dealCard()).getTitle(),player.drawCard(playingDeck.dealCard()).getTitle()))
+print("Dealer starts with a {}".format(dealer.drawCard(playingDeck.dealCard()).getTitle()))
 
 while True:
 
@@ -35,14 +39,14 @@ while True:
     move = input("Do you want to hit or stand? ").lower()
 
     if move == "hit":
-        print(f"\nYou draw a {player.dealCard()}")
+        print(f"\nYou draw a {player.drawCard(playingDeck.dealCard()).getTitle()}")
     elif move == "stand":
         print("\nPlayer Stand's")
         break
     else:
         print("\nInvalid")
 
-print("\nDealer flips a {}".format(dealer.dealCard()))
+print("\nDealer flips a {}".format(dealer.drawCard(playingDeck.dealCard()).getTitle()))
 
 while True:
     score(player, dealer)
@@ -60,7 +64,7 @@ while True:
             print("Dealer stands")
             break
         else:
-            print("\nDealer draws a {}".format(dealer.dealCard()))
+            print("\nDealer draws a {}".format(dealer.drawCard(playingDeck.dealCard()).getTitle()))
     else:
         break
 
