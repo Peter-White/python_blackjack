@@ -1,5 +1,7 @@
 from Hand import *
 
+playingDeck = Deck()
+
 def score(player, dealer):
     print("\n")
     print("===========================")
