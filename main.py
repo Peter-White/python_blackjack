@@ -38,9 +38,9 @@ def playerPlaceBet(Player,minBet=10):
                 elif place_bet + minBet > Player.getFunds():
                     print("You cannot bet more than your current funds")
                 else:
-                    print(f"You bet ${Player.placeBet(place_bet)}", end='')
-                    print(f" and raised the minimum to ${minBet + place_bet}")
-                    bet = minBet + bet
+                    print(f"You raised by {place_bet}", end='')
+                    bet = minBet + place_bet
+                    print(f" the minimum is now ${Player.placeBet(bet)}")
             elif ans == "match":
                 print("You match the minimum with ${}".format(Player.placeBet(minBet)))
                 bet = minBet
@@ -49,7 +49,7 @@ def playerPlaceBet(Player,minBet=10):
 
     return bet
 
-def playGame():
+def playGame(pool):
 
     if playingDeck.remainingCards() < 20:
         print("Reshuffling Decks")
@@ -108,26 +108,41 @@ def playGame():
             break
 
     if player.getHand() == dealer.getHand():
-        print("\nPush")
+        print("\nPush No One Wins")
+        player.getWinnings(pool / 2)
+        dealer.getWinnings(pool / 2)
     elif player.getBust() == True:
         print("\nDealer Wins By Default")
+        dealer.getWinnings(pool)
     elif dealer.getBust() == True:
         print("\nPlayer Wins By Default")
+        player.getWinnings(pool)
     elif player.getBlackjack() == True:
         print("\nPlayer Wins By Blackjack")
+        player.getWinnings(pool)
     elif player.getHand() > dealer.getHand():
         print("\nPlayer Wins")
+        player.getWinnings(pool)
     elif dealer.getBlackjack() == True:
         print("\nDealer Wins By Blackjack")
+        dealer.getWinnings(pool)
     else:
         print("\nDealer Wins")
+        dealer.getWinnings(pool)
 
 game_over = False
 while not game_over:
-    playGame()
+    pool = 0
+    player_bet = playerPlaceBet(player)
+    dealer_bet = player_bet
+    pool += player_bet + dealer_bet
+    print("Pool is now ${}".format(pool))
+
+
+    playGame(pool)
 
     while True:
-        ans = input("\nPlay another hand (y/n)? ").lower()
+        ans = input(f"\nYou now have ${player.getFunds()}. Play another hand (y/n)? ").lower()
 
         if ans == "n":
             print("Come back soon with more money")
