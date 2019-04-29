@@ -28,8 +28,11 @@ class Hand():
         return self.funds
 
     def placeBet(self, bet):
-        self.hand -= bet
+        self.funds -= bet
         return bet
+
+    def getWinnings(self, pool):
+        self.funds += pool
 
     def resetHand(self):
         self.hand = 0
@@ -50,6 +53,14 @@ class Hand():
 
     def getBlackjack(self):
         return self.blackjack
+
+    def __str__(self):
+        player = f"Name: {self.name}\t"
+        player += f"Funds: {self.funds}\t"
+        player += f"Hand: {self.hand}\t"
+        player += f"Bust: {self.bust}\t"
+        player += f"Blackjack: {self.blackjack}"
+        return player
 
 class Dealer(Hand):
 

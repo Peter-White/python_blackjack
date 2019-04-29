@@ -18,6 +18,37 @@ player = Hand("The Cincinnati Kid", 500)
 dealer = Dealer()
 playingDeck.shuffleCards()
 
+pool = 0
+
+def playerPlaceBet(Player,minBet=10):
+    bet = 0
+
+    if Player.getFunds() < minBet:
+        print("Your funds do not match the minimum bet you cannot play")
+        bet = -1
+    else:
+        while bet < minBet:
+            ans = input(f"The minimum is ${minBet} enter match or raise: ").lower()
+
+            if ans == "raise":
+                place_bet = int(input("Enter the amount to raise by: "))
+
+                if place_bet <= 0:
+                    print("You cannot bet less than zero funds")
+                elif place_bet + minBet > Player.getFunds():
+                    print("You cannot bet more than your current funds")
+                else:
+                    print(f"You bet ${Player.placeBet(place_bet)}", end='')
+                    print(f" and raised the minimum to ${minBet + place_bet}")
+                    bet = minBet + bet
+            elif ans == "match":
+                print("You match the minimum with ${}".format(Player.placeBet(minBet)))
+                bet = minBet
+            else:
+                print("Invalid. Try Again.")
+
+    return bet
+
 def playGame():
 
     if playingDeck.remainingCards() < 20:
